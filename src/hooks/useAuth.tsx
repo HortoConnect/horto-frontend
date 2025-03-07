@@ -12,13 +12,15 @@ export const useAuth = () => {
     const savedToken = Cookies.get("authToken");
     if (savedToken) {
       const userData = getTokenPayload(savedToken);
-      islogin(savedToken);
+      islogin(savedToken, {
+        role: userData.role
+      });
     }
   }, [islogin]);
 
-  const login = async (email: string, senha: string) => {
+  const login = async (email: string, password: string) => {
     try {
-      const data = await loginService(email, senha);
+      const data = await loginService(email, password);
 
       Cookies.set("authToken", data.token, {
         expires: 7,
@@ -27,8 +29,11 @@ export const useAuth = () => {
       });
       const userData = getTokenPayload(data.token);
       console.log(userData);
-      islogin(data.token);
+      islogin(data.token, {
+        role: userData.role
+      });
       setError(null);
+      return userData.role;
     } catch (err: any) {
       const errorMessage =
         err?.response?.data?.message || "Erro ao fazer login. Tente novamente.";

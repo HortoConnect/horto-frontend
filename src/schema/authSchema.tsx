@@ -7,7 +7,7 @@ const baseAuthSchema = z.object({
     .min(1, "O e-mail é obrigatório"),
   password: z
     .string()
-    .min(6, "A senha precisa ter pelo menos 6 caracteres")
+    .min(2, "A senha precisa ter pelo menos 6 caracteres")
     .min(1, "A senha é obrigatória"),
 });
 
