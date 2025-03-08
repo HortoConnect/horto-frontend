@@ -20,6 +20,8 @@ import { useQuery } from "@tanstack/react-query";
 import Navbar from "@/components/global/Navbar";
 import { Skeleton } from "@/components/ui/skeleton";
 import NovoProduto from "@/components/NovoProduto";
+import NovaCategoria from "@/components/NovaCategoria";
+import NovaSubcategoria from "@/components/NovaSubcategoria";
 
 const Dashboard = () => {
   const {
@@ -38,9 +40,11 @@ const Dashboard = () => {
     <div className="container mx-auto px-4 mt-10">
       <Navbar />
       <Tabs defaultValue="fornecedores">
-        <TabsList className="grid w-full grid-cols-2 mb-4">
+        <TabsList className="grid w-full md:grid-cols-4 grid-cols-2 mb-4">
           <TabsTrigger value="fornecedores">Fornecedores</TabsTrigger>
           <TabsTrigger value="produto">Criar produto</TabsTrigger>
+          <TabsTrigger value="categoria">Criar categoria</TabsTrigger>
+          <TabsTrigger value="subcategoria">Criar subcategoria</TabsTrigger>
         </TabsList>
 
         <TabsContent value="fornecedores">
@@ -75,6 +79,12 @@ const Dashboard = () => {
         </TabsContent>
         <TabsContent value="produto">
           <NovoProduto />
+        </TabsContent>
+        <TabsContent value="categoria">
+          <NovaCategoria/>
+        </TabsContent>
+        <TabsContent value="subcategoria">
+          <NovaSubcategoria/>
         </TabsContent>
       </Tabs>
     </div>

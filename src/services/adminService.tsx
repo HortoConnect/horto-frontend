@@ -10,7 +10,7 @@ export const fornecedoresService = async () => {
   const token = Cookies.get("authToken");
 
   try {
-    const response = await api.post("/supplier/find/all", {
+    const response = await api.post("/supplier", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
