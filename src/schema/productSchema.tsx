@@ -15,10 +15,22 @@ const cadastroSubcategorySchema = z.object({
   subcategoria: z.string().min(1, "Subcategoria é obrigatório"),
 })
 
+const cadastroSize = z.object({
+  tamanho: z.string().min(1, "Tamanho é obrigatório")
+})
+
+const cadastroQuality = z.object({
+  qualidade: z.string().min(1, "Qualidade é obrigatório")
+})
+
 export const productSchema = cadastroProductSchema
 export const categorySchema = cadastroCategorySchema;
 export const subcategorySchema = cadastroSubcategorySchema;
+export const sizeSchema = cadastroSize;
+export const qualitySchema = cadastroQuality;
 
 export type ProductFormValues = z.infer<typeof productSchema>;
 export type CategoryFormValues = z.infer<typeof categorySchema>;
 export type SubcategoryFormValues = z.infer<typeof subcategorySchema>;
+export type SizeFormValues = z.infer<typeof sizeSchema>;
+export type QualityFormValues = z.infer<typeof qualitySchema>;

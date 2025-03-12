@@ -2,7 +2,9 @@
 import {
   cadastroCategoriaService,
   cadastroProdutoService,
+  cadastroQualidadeService,
   cadastroSubcategoriaService,
+  cadastroTamanhoService,
 } from "@/services/produtosService";
 import { useState } from "react";
 
@@ -69,10 +71,43 @@ export const useProdutos = () => {
       const errorMessage =
         err?.response?.data?.message ||
         err?.message ||
-        "Erro ao cadastrar categoria. Tente novamente.";
+        "Erro ao cadastrar subcategoria. Tente novamente.";
       setError(errorMessage);
     }
   };
 
-  return { cadastroProduto, cadastroCategoria, cadastroSubcategoria, error };
+  const cadastroTamanho = async (name: string) => {
+    try {
+      const data = await cadastroTamanhoService(name);
+      console.log("Tamanho cadastrado com sucesso!", data);
+    } catch (err: any) {
+      const errorMessage =
+        err?.response?.data?.message ||
+        err?.message ||
+        "Erro ao cadastrar tamanho. Tente novamente.";
+      setError(errorMessage);
+    }
+  };
+
+  const cadastroQualidade = async (name: string) => {
+    try {
+      const data = await cadastroQualidadeService(name);
+      console.log("Qualidade cadastrada com sucesso!", data);
+    } catch (err: any) {
+      const errorMessage =
+        err?.response?.data?.message ||
+        err?.message ||
+        "Erro ao cadastrar qualidade. Tente novamente.";
+      setError(errorMessage);
+    }
+  };
+
+  return {
+    cadastroProduto,
+    cadastroCategoria,
+    cadastroSubcategoria,
+    cadastroTamanho,
+    cadastroQualidade,
+    error,
+  };
 };

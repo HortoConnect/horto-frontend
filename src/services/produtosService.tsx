@@ -100,3 +100,31 @@ export const cadastroSubcategoriaService = async (name: string, category_id: num
     throw error;
   }
 }
+
+export const cadastroTamanhoService = async (name: string) => {
+  const token = Cookies.get("authToken");
+  try {
+    const response = await api.post("/size", { name }, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const cadastroQualidadeService = async (name: string) => {
+  const token = Cookies.get("authToken");
+  try{
+    const response = await api.post("/quality", { name }, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
