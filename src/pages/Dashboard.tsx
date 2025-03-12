@@ -15,13 +15,13 @@ import { Input } from "@/components/ui/input";
 import logo from "../assets/img/logo.png";
 import { Search } from "lucide-react";
 import OrdersTable from "@/components/OrdersTable";
-import { fornecedoresService } from "@/services/adminService";
+import { fornecedoresListService } from "@/services/adminService";
 import { useQuery } from "@tanstack/react-query";
 import Navbar from "@/components/global/Navbar";
 import { Skeleton } from "@/components/ui/skeleton";
 import NovoProduto from "@/components/NovoProduto";
-import NovaCategoria from "@/components/NovaCategoria";
-import NovaSubcategoria from "@/components/NovaSubcategoria";
+import NovaCategoria from "@/components/Categoria_Subcategoria";
+import NovoFornecedor from "@/components/NovoFornecedor";
 
 const Dashboard = () => {
   const {
@@ -30,21 +30,19 @@ const Dashboard = () => {
     error,
   } = useQuery({
     queryKey: ["fornecedores"],
-    queryFn: () => fornecedoresService(),
+    queryFn: () => fornecedoresListService(),
     staleTime: 20 * 60 * 1000,
   });
 
-  console.log(fornecedores);
-
   return (
-    <div className="container mx-auto px-4 mt-10">
+    <div className="mx-auto px-4 mt-10 max-w-[1800px]">
       <Navbar />
       <Tabs defaultValue="fornecedores">
-        <TabsList className="grid w-full md:grid-cols-4 grid-cols-2 mb-4">
+        <TabsList className="grid w-full lg:grid-cols-4 md:grid-cols-3 grid-cols-2 md:mb-4 mb-16">
           <TabsTrigger value="fornecedores">Fornecedores</TabsTrigger>
           <TabsTrigger value="produto">Criar produto</TabsTrigger>
-          <TabsTrigger value="categoria">Criar categoria</TabsTrigger>
-          <TabsTrigger value="subcategoria">Criar subcategoria</TabsTrigger>
+          <TabsTrigger value="categoria_subcategoria">Criar categoria/subcategoria</TabsTrigger>
+          <TabsTrigger value="criarFornecedor">Criar fornecedor</TabsTrigger>
         </TabsList>
 
         <TabsContent value="fornecedores">
@@ -80,11 +78,11 @@ const Dashboard = () => {
         <TabsContent value="produto">
           <NovoProduto />
         </TabsContent>
-        <TabsContent value="categoria">
-          <NovaCategoria/>
+        <TabsContent value="categoria_subcategoria">
+          <NovaCategoria />
         </TabsContent>
-        <TabsContent value="subcategoria">
-          <NovaSubcategoria/>
+        <TabsContent value="criarFornecedor">
+          <NovoFornecedor />
         </TabsContent>
       </Tabs>
     </div>

@@ -34,28 +34,6 @@ const page = () => {
     formState: { isSubmitting, errors },
   } = useForm<ProductFormValues>({ resolver: zodResolver(productSchema) });
 
-  // Buscar categorias
-  const {
-    data: categories = [],
-    isLoading: categoriesLoading,
-    error: categoriesError,
-  } = useQuery({
-    queryKey: ["categories"],
-    queryFn: () => fetchCategories(),
-    staleTime: 20 * 60 * 1000,
-  });
-
-  const {
-    data: subcategories = [],
-    isLoading: subcategoriesLoading,
-    error: subcategoriesError,
-  } = useQuery({
-    queryKey: ["subcategories", Number(currentCategory)],
-    queryFn: () => fetchSubcategories(Number(currentCategory)),
-    staleTime: 20 * 60 * 1000,
-    enabled: !!currentCategory,
-  });
-
   const handleCategoryChange = (e: any) => {
     const value = e.target.value;
     setCurrentCategory(value);
@@ -80,6 +58,29 @@ const page = () => {
     setPreviewUrl(null);
   };
 
+    // Buscar categorias
+    const {
+      data: categories = [],
+      isLoading: categoriesLoading,
+      error: categoriesError,
+    } = useQuery({
+      queryKey: ["categories"],
+      queryFn: () => fetchCategories(),
+      staleTime: 20 * 60 * 1000,
+    });
+  
+    const {
+      data: subcategories = [],
+      isLoading: subcategoriesLoading,
+      error: subcategoriesError,
+    } = useQuery({
+      queryKey: ["subcategories", Number(currentCategory)],
+      queryFn: () => fetchSubcategories(Number(currentCategory)),
+      staleTime: 20 * 60 * 1000,
+      enabled: !!currentCategory,
+    });
+  
+
   async function onSubmit(data: FieldValues) {
     try {
     if (currentSubcategory === undefined) {
@@ -99,7 +100,7 @@ const page = () => {
   }
 
   return (
-    <div className="container flex items-center justify-center lg:px-4 px-1 mt-10">
+    <div className="w-full flex items-center justify-center lg:px-4 px-1 mt-10">
       <div className="w-full max-w-4xl overflow-hidden">
         <form className="lg:p-6 p-3" onSubmit={handleSubmit(onSubmit)}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

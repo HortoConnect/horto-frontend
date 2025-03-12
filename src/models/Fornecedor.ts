@@ -1,5 +1,5 @@
 export interface Fornecedor {
     id: number;
-    nome: string;
+    name: string;
     cnpj: string;
   }

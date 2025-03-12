@@ -47,13 +47,10 @@ export const fetchSubcategories = async (categoryId: number) => {
       return [];
     }
 
-    const response = await api.get("/subcategory", {
+    const response = await api.get(`/subcategory/category/${categoryId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
-      },
-      params: {
-        category_id: categoryId,
-      },
+      }
     });
     return response.data;
   } catch (error) {

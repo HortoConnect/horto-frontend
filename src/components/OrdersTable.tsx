@@ -9,8 +9,7 @@ import {
 } from "./ui/table";
 import { Link } from "react-router-dom";
 
-export default function OrdersTable({fornecedores} :  fornecedores) {
-
+export default function OrdersTable({ fornecedores }: fornecedores) {
   return (
     <Table>
       <TableHeader>
@@ -24,13 +23,29 @@ export default function OrdersTable({fornecedores} :  fornecedores) {
         {fornecedores.map((fornecedor) => (
           <TableRow key={fornecedor.id}>
             <TableCell>
-              <Link to={`/fornecedor/${fornecedor.id}`} className="block">
-                <div className="font-medium">{fornecedor.id}</div>
-                <div className="font-medium">{fornecedor.nome}</div>
-                <div className="font-medium">{fornecedor.cnpj}</div>
+              <Link
+                to={`/fornecedor/${fornecedor.id}`}
+                className="cursor-pointer"
+              >
+                {fornecedor.id}
               </Link>
             </TableCell>
-            <TableCell>{fornecedor.cnpj}</TableCell>
+            <TableCell>
+              <Link
+                to={`/fornecedor/${fornecedor.id}`}
+                className="cursor-pointer"
+              >
+                {fornecedor.name}
+              </Link>
+            </TableCell>
+            <TableCell>
+              <Link
+                to={`/fornecedor/${fornecedor.id}`}
+                className="cursor-pointer"
+              >
+                {fornecedor.cnpj}
+              </Link>
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>
