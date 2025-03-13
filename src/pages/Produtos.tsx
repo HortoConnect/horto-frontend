@@ -1,7 +1,6 @@
 import { Link, useSearchParams } from "react-router-dom";
 import logo from "../assets/img/logo.png";
 import ProductsList from "../components/ProductsList";
-import Navbar from "@/components/global/Navbar";
 import Favoritos from "@/components/Favoritos";
 import { Search } from "lucide-react";
 import SearchFilter from "@/components/SearchFilter";
@@ -33,7 +32,6 @@ const Produtos = () => {
 
   return (
     <>
-      <Navbar />
       <main>
         <div className="container mx-auto px-4 mt-10">
           {/* Hero Section */}

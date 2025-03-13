@@ -22,6 +22,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import NovoProduto from "@/components/NovoProduto";
 import FormInfoProduct from "@/components/FormInfoProduct";
 import NovoFornecedor from "@/components/NovoFornecedor";
+import ProdFornecedores from "@/components/ProdFornecedores";
 
 const Dashboard = () => {
   const {
@@ -38,11 +39,12 @@ const Dashboard = () => {
     <div className="mx-auto px-4 mt-10 max-w-[1800px]">
       <Navbar />
       <Tabs defaultValue="fornecedores">
-        <TabsList className="grid w-full lg:grid-cols-4 md:grid-cols-3 grid-cols-2 md:mb-4 mb-16">
+        <TabsList className="grid w-full lg:grid-cols-5 md:grid-cols-3 grid-cols-2 md:mb-4 mb-5">
           <TabsTrigger value="fornecedores">Fornecedores</TabsTrigger>
           <TabsTrigger value="produto">Criar produto</TabsTrigger>
-          <TabsTrigger value="formInfoProduct">Informações dos produtos</TabsTrigger>
+          <TabsTrigger value="formInfoProduct">Info. dos produtos</TabsTrigger>
           <TabsTrigger value="criarFornecedor">Criar fornecedor</TabsTrigger>
+          <TabsTrigger value="prodFornecedores">Prod. fornecedores</TabsTrigger>
         </TabsList>
 
         <TabsContent value="fornecedores">
@@ -83,6 +85,9 @@ const Dashboard = () => {
         </TabsContent>
         <TabsContent value="criarFornecedor">
           <NovoFornecedor />
+        </TabsContent>
+        <TabsContent value="prodFornecedores">
+         <ProdFornecedores/>
         </TabsContent>
       </Tabs>
     </div>

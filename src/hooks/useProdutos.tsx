@@ -5,6 +5,7 @@ import {
   cadastroQualidadeService,
   cadastroSubcategoriaService,
   cadastroTamanhoService,
+  produtoByFornecedorService,
 } from "@/services/produtosService";
 import { useState } from "react";
 
@@ -102,12 +103,36 @@ export const useProdutos = () => {
     }
   };
 
+  const ProdutoByFornecedor = async (
+    price: number,
+    quality_id: number,
+    size_id: number,
+    product_id: number,
+    supplier_id: number
+  ) => {
+    try {
+      await produtoByFornecedorService(
+        price,
+        quality_id,
+        size_id,
+        product_id,
+        supplier_id
+      );
+    } catch (err: any) {
+      const errorMessage =
+        err?.response?.data?.message ||
+        "Erro ao fazer conexão com o fornecedor. Tente novamente.";;
+      setError(errorMessage);
+    }
+  };
+
   return {
     cadastroProduto,
     cadastroCategoria,
     cadastroSubcategoria,
     cadastroTamanho,
     cadastroQualidade,
+    ProdutoByFornecedor,
     error,
   };
 };

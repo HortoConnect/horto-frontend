@@ -4,6 +4,7 @@ import Produtos from "../pages/Produtos";
 import Dashboard from "@/pages/Dashboard";
 import PublicRoute from "./PublicRoute";
 import PrivateRoute from "./PrivateRoute";
+import ProdutoInfo from "@/pages/ProdutoInfo";
 
 export function AppRoutes() {
   return (
@@ -19,6 +20,7 @@ export function AppRoutes() {
       {/* Rota privada (somente quem está logado pode acessar) */}
       <Route element={<PrivateRoute />}>
         <Route path="/produtos" element={<Produtos />} />
+        <Route path="/produto/:id" element={<ProdutoInfo />} />
         <Route path="/dashboard" element={<Dashboard />} />
       </Route>
     </Routes>

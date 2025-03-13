@@ -7,9 +7,15 @@ import {
   TableHeader,
   TableRow,
 } from "./ui/table";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function OrdersTable({ fornecedores }: fornecedores) {
+  const navigate = useNavigate();
+
+  const handleRowClick = (id : number) => {
+    navigate(`/fornecedor/${id}`);
+  };
+
   return (
     <Table>
       <TableHeader>
@@ -21,31 +27,14 @@ export default function OrdersTable({ fornecedores }: fornecedores) {
       </TableHeader>
       <TableBody>
         {fornecedores.map((fornecedor) => (
-          <TableRow key={fornecedor.id}>
-            <TableCell>
-              <Link
-                to={`/fornecedor/${fornecedor.id}`}
-                className="cursor-pointer"
-              >
-                {fornecedor.id}
-              </Link>
-            </TableCell>
-            <TableCell>
-              <Link
-                to={`/fornecedor/${fornecedor.id}`}
-                className="cursor-pointer"
-              >
-                {fornecedor.name}
-              </Link>
-            </TableCell>
-            <TableCell>
-              <Link
-                to={`/fornecedor/${fornecedor.id}`}
-                className="cursor-pointer"
-              >
-                {fornecedor.cnpj}
-              </Link>
-            </TableCell>
+          <TableRow 
+            key={fornecedor.id} 
+            className="cursor-pointer" 
+            onClick={() => handleRowClick(fornecedor.id)}
+          >
+            <TableCell>{fornecedor.id}</TableCell>
+            <TableCell>{fornecedor.name}</TableCell>
+            <TableCell>{fornecedor.cnpj}</TableCell>
           </TableRow>
         ))}
       </TableBody>
