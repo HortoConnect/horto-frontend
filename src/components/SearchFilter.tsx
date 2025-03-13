@@ -36,8 +36,8 @@ const SearchFilter = () => {
     isLoading: subcategoriesLoading,
     error: subcategoriesError,
   } = useQuery({
-    queryKey: ["subcategories", currentCategory],
-    queryFn: () => fetchSubcategories(currentCategory),
+    queryKey: ["subcategories", Number(currentCategory)],
+    queryFn: () => fetchSubcategories(Number(currentCategory)),
     staleTime: 20 * 60 * 1000,
     enabled: !!currentCategory,
   });

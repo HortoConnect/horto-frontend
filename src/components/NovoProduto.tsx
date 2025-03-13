@@ -21,7 +21,6 @@ const page = () => {
   const [currentCategory, setCurrentCategory] = useState<string | undefined>(
     undefined
   );
-  const [files, setFiles] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   const [currentSubcategory, setCurrentSubcategory] = useState();
@@ -47,14 +46,12 @@ const page = () => {
     if (e.target.files && e.target.files[0]) {
       const newFile = e.target.files[0]; 
       const newUrl = URL.createObjectURL(newFile);
-      setFiles(newFile);
       setPreviewUrl(newUrl);
       setValue("imagem", e.target.files);
     }
   };
 
   const handleRemovePhoto = () => {
-    setFiles(null);
     setPreviewUrl(null);
   };
 
