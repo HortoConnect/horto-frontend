@@ -3,7 +3,6 @@ import {
   cadastroCategoriaService,
   cadastroProdutoService,
   cadastroQualidadeService,
-  cadastroSubcategoriaService,
   cadastroTamanhoService,
   produtoByFornecedorService,
 } from "@/services/produtosService";
@@ -64,19 +63,6 @@ export const useProdutos = () => {
     }
   };
 
-  const cadastroSubcategoria = async (name: string, category_id: number) => {
-    try {
-      const data = await cadastroSubcategoriaService(name, category_id);
-      console.log("Subcategoria cadastrada com sucesso!", data);
-    } catch (err: any) {
-      const errorMessage =
-        err?.response?.data?.message ||
-        err?.message ||
-        "Erro ao cadastrar subcategoria. Tente novamente.";
-      setError(errorMessage);
-    }
-  };
-
   const cadastroTamanho = async (name: string) => {
     try {
       const data = await cadastroTamanhoService(name);
@@ -129,7 +115,6 @@ export const useProdutos = () => {
   return {
     cadastroProduto,
     cadastroCategoria,
-    cadastroSubcategoria,
     cadastroTamanho,
     cadastroQualidade,
     ProdutoByFornecedor,

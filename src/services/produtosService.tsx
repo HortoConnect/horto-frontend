@@ -42,7 +42,7 @@ export const fetchCategories = async () => {
   const token = Cookies.get("authToken");
 
   try {
-    const response = await api.get("/category", {
+    const response = await api.get("/api/category", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -61,7 +61,37 @@ export const fetchSubcategories = async (categoryId: number) => {
       return [];
     }
 
-    const response = await api.get(`/subcategory/category/${categoryId}`, {
+    const response = await api.get(`/api/subcategory/category/${categoryId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const fetchTamanhos = async () => {
+  const token = Cookies.get("authToken");
+
+  try {
+    const response = await api.get(`/api/size`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const fetchQualidade = async () => {
+  const token = Cookies.get("authToken");
+
+  try {
+    const response = await api.get(`/api/quality`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -91,7 +121,7 @@ export const cadastroCategoriaService = async (name: string) => {
   const token = Cookies.get("authToken");
   try {
     const response = await api.post(
-      "/category",
+      "/api/category",
       { name },
       {
         headers: {
@@ -107,13 +137,20 @@ export const cadastroCategoriaService = async (name: string) => {
 
 export const cadastroSubcategoriaService = async (
   name: string,
-  category_id: number
+  category_id: number,
+  qualities_ids: number[],
+  sizes_ids: number[]
 ) => {
   const token = Cookies.get("authToken");
   try {
     const response = await api.post(
-      "/subcategory",
-      { name, category_id },
+      "/api/subcategory",
+      {
+        name,
+        category_id,
+        qualities_id: qualities_ids,
+        sizes_id: sizes_ids,
+      },
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -130,7 +167,7 @@ export const cadastroTamanhoService = async (name: string) => {
   const token = Cookies.get("authToken");
   try {
     const response = await api.post(
-      "/size",
+      "/api/size",
       { name },
       {
         headers: {
@@ -148,7 +185,7 @@ export const cadastroQualidadeService = async (name: string) => {
   const token = Cookies.get("authToken");
   try {
     const response = await api.post(
-      "/quality",
+      "/api/quality",
       { name },
       {
         headers: {
