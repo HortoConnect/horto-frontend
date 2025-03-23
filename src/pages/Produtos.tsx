@@ -28,8 +28,6 @@ const Produtos = () => {
       setSearchParams(newSearchParams);
     }, [product,setSearchParams]);
 
-  console.log(produtos)
-
   return (
     <>
       <main>
@@ -75,7 +73,7 @@ const Produtos = () => {
           <section className="py-10 max-w-[1280px]">
           {isLoading && <p>Carregando...</p>}
           {error && <p>Erro ao carregar produtos</p>}
-            <ProductsList products={produtos.products}/>
+            <ProductsList products={produtos}/>
           </section>
         </div>
       </main>

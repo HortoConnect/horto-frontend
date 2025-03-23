@@ -10,7 +10,7 @@ export const produtosCadastrados = async (name: string) => {
   const token = Cookies.get("authToken");
 
   try {
-    const response = await api.get("/product", {
+    const response = await api.get("/api/product", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -27,7 +27,7 @@ export const produtosCadastrados = async (name: string) => {
 export const fetchProduto = async (id: number) => {
   const token = Cookies.get("authToken");
   try {
-    const response = await api.get(`/product/${id}`, {
+    const response = await api.get(`/api/product/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -106,7 +106,7 @@ export const cadastroProdutoService = async (formData: FormData) => {
   const token = Cookies.get("authToken");
 
   try {
-    const response = await api.post("/product", formData, {
+    const response = await api.post("/api/product", formData, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
