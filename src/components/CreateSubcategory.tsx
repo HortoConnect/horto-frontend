@@ -58,7 +58,6 @@ export function CreateSubcategoryModal({ currentCategoryId }: Props) {
 
   const toggleSelection = (
     id: string,
-    selectedItems: string[],
     setSelectedItems: React.Dispatch<React.SetStateAction<string[]>>
   ) => {
     setSelectedItems((prev) =>
@@ -67,7 +66,6 @@ export function CreateSubcategoryModal({ currentCategoryId }: Props) {
   };
 
   const SelectedPill = ({
-    id,
     name,
     onRemove,
   }: {
@@ -157,13 +155,7 @@ export function CreateSubcategoryModal({ currentCategoryId }: Props) {
                     key={id}
                     id={id}
                     name={quality?.name || ""}
-                    onRemove={() =>
-                      toggleSelection(
-                        id,
-                        selectedQualities,
-                        setSelectedQualities
-                      )
-                    }
+                    onRemove={() => toggleSelection(id, setSelectedQualities)}
                   />
                 );
               })}
@@ -174,13 +166,7 @@ export function CreateSubcategoryModal({ currentCategoryId }: Props) {
                 <button
                   type="button"
                   key={qualidade.id}
-                  onClick={() =>
-                    toggleSelection(
-                      qualidade.id,
-                      selectedQualities,
-                      setSelectedQualities
-                    )
-                  }
+                  onClick={() => toggleSelection(qualidade.id, setSelectedQualities)}
                   className={`p-2 text-sm rounded-md transition-colors
                     ${
                       selectedQualities.includes(qualidade.id)
@@ -208,9 +194,7 @@ export function CreateSubcategoryModal({ currentCategoryId }: Props) {
                     key={id}
                     id={id}
                     name={size?.name || ""}
-                    onRemove={() =>
-                      toggleSelection(id, selectedSizes, setSelectedSizes)
-                    }
+                    onRemove={() => toggleSelection(id, setSelectedSizes)}
                   />
                 );
               })}
@@ -221,9 +205,7 @@ export function CreateSubcategoryModal({ currentCategoryId }: Props) {
                 <button
                   type="button"
                   key={tamanho.id}
-                  onClick={() =>
-                    toggleSelection(tamanho.id, selectedSizes, setSelectedSizes)
-                  }
+                  onClick={() => toggleSelection(tamanho.id, setSelectedSizes)}
                   className={`p-2 text-sm rounded-md transition-colors
                     ${
                       selectedSizes.includes(tamanho.id)

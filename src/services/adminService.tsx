@@ -10,11 +10,15 @@ export const fornecedorService = async (name: string, cnpj: string) => {
   const token = Cookies.get("authToken");
 
   try {
-    const response = await api.post("/supplier", {name, cnpj}, {
+    const response = await api.post(
+      "/supplier",
+      { name, cnpj },
+      {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      });
+      }
+    );
     return response.data;
   } catch (error: any) {
     console.error(
@@ -31,10 +35,10 @@ export const fornecedoresListService = async () => {
 
   try {
     const response = await api.get("/supplier", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return response.data;
   } catch (error: any) {
     console.error(
