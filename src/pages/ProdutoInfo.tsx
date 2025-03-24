@@ -34,7 +34,7 @@ const ProdutoInfo = () => {
             <Skeleton className="md:h-[400px] h-[200px] w-full rounded-none" />
         </div>
     ) : (
-        <DetailsProduct produto={produto}/>
+        <DetailsProduct produto={produto} isLoading={isLoadingProduto} erro={!!errorProduto} />
     )}
     {errorProduto && <p>Erro ao carregar dados do produto.</p>}
   

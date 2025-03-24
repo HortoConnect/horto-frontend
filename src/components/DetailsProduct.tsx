@@ -1,15 +1,19 @@
 import { Product } from "@/models/Product";
-import {
-  listaFornecedoresProdutoService,
-  listaQualidadesService,
-  listaTamanhosService,
-} from "@/services/produtosService";
+import { listaFornecedoresProdutoService } from "@/services/produtosService";
 import { useQuery } from "@tanstack/react-query";
 import { MessageCircle, Package, Scale } from "lucide-react";
 import { useState } from "react";
 import { Skeleton } from "./ui/skeleton";
 
-const DetailsProduct = ({ produto }: { produto: Product }) => {
+const DetailsProduct = ({
+  produto,
+  isLoading,
+  erro,
+}: {
+  produto: Product;
+  isLoading: boolean;
+  erro: boolean | null;
+}) => {
   const hero = produto.pictures?.[0]?.url || "/imagem-padrao.jpg";
 
   const [currentQualidade, setCurrentQualidade] = useState<string | undefined>(
@@ -27,28 +31,6 @@ const DetailsProduct = ({ produto }: { produto: Product }) => {
     setCurrentSize(value);
   };
 
-  // Busca qualidades
-  const {
-    data: qualidades = [],
-    isLoading: qualidadesLoading,
-    error: qualidadesError,
-  } = useQuery({
-    queryKey: ["qualidades"],
-    queryFn: () => listaQualidadesService(),
-    staleTime: 20 * 60 * 1000,
-  });
-
-  // Busca tamanhos
-  const {
-    data: sizes = [],
-    isLoading: sizesLoading,
-    error: sizesError,
-  } = useQuery({
-    queryKey: ["sizes"],
-    queryFn: () => listaTamanhosService(),
-    staleTime: 20 * 60 * 1000,
-  });
-
   // Busca fornecedores
   const {
     data: fornecedores = [],
@@ -59,6 +41,8 @@ const DetailsProduct = ({ produto }: { produto: Product }) => {
     queryFn: () => listaFornecedoresProdutoService(produto.id),
     staleTime: 20 * 60 * 1000,
   });
+
+  console.log(produto);
 
   return (
     <>
@@ -84,18 +68,18 @@ const DetailsProduct = ({ produto }: { produto: Product }) => {
                   className="w-full p-3 border border-green-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
                   value={currentQualidade}
                   onChange={handleQualidadeChange}
-                  disabled={qualidadesLoading}
+                  disabled={isLoading}
                 >
                   <option value="">Selecione uma qualidade</option>
-                  {!qualidadesLoading &&
-                    !qualidadesError &&
-                    qualidades.map((qualidade: any) => (
+                  {!isLoading &&
+                    !erro &&
+                    produto.subcategory.qualities.map((qualidade: any) => (
                       <option key={qualidade.id} value={qualidade.id}>
                         {qualidade.name}
                       </option>
                     ))}
                 </select>
-                {qualidadesError && (
+                {erro && (
                   <p className="text-red-500 text-sm mt-1">
                     Erro ao carregar qualidades
                   </p>
@@ -111,18 +95,18 @@ const DetailsProduct = ({ produto }: { produto: Product }) => {
                   className="w-full p-3 border border-green-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
                   value={currentSize}
                   onChange={handleSizeChange}
-                  disabled={sizesLoading}
+                  disabled={isLoading}
                 >
                   <option value="">Selecione um tamanho</option>
-                  {!sizesLoading &&
-                    !sizesError &&
-                    sizes.map((size: any) => (
+                  {!isLoading &&
+                    !erro &&
+                    produto.subcategory.sizes.map((size: any) => (
                       <option key={size.id} value={size.id}>
                         {size.name}
                       </option>
                     ))}
                 </select>
-                {sizesError && (
+                {erro && (
                   <p className="text-red-500 text-sm mt-1">
                     Erro ao carregar tamanhos
                   </p>
@@ -201,7 +185,9 @@ const DetailsProduct = ({ produto }: { produto: Product }) => {
                   ))}
                 </>
               ) : (
-                <p className="text-base">Nenhum fornecedor disponível para este produto.</p>
+                <p className="text-base">
+                  Nenhum fornecedor disponível para este produto.
+                </p>
               )}
             </>
           )}
