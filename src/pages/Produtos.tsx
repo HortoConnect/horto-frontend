@@ -11,22 +11,30 @@ import { useQuery } from "@tanstack/react-query";
 const Produtos = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [product, setProduct] = useState(searchParams.get("product") || "");
+  const category = searchParams.get("category") || "";
+  const subcategory = searchParams.get("subcategory") || "";
 
   const {
     data: produtos = [],
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["produtos", product],
-    queryFn: () => produtosCadastrados(product.toLocaleLowerCase()),
+    queryKey: ["produtos", product, category, subcategory],
+    queryFn: () =>
+      produtosCadastrados(product.toLocaleLowerCase(), category, subcategory),
     staleTime: 20 * 60 * 1000,
   });
 
   useEffect(() => {
-      const newSearchParams = new URLSearchParams();
-      if (product) newSearchParams.set("product", product);  
-      setSearchParams(newSearchParams);
-    }, [product,setSearchParams]);
+    const newSearchParams = new URLSearchParams(searchParams.toString());
+    if (product) {
+      newSearchParams.set("product", product);
+    } else {
+      newSearchParams.delete("product");
+    }
+    setSearchParams(newSearchParams);
+  }, [product, setSearchParams, searchParams]);
+
 
   return (
     <>
@@ -71,9 +79,9 @@ const Produtos = () => {
           </div>
 
           <section className="py-10 max-w-[1280px]">
-          {isLoading && <p>Carregando...</p>}
-          {error && <p>Erro ao carregar produtos</p>}
-            <ProductsList products={produtos}/>
+            {isLoading && <p>Carregando...</p>}
+            {error && <p>Erro ao carregar produtos</p>}
+            <ProductsList products={produtos.content} />
           </section>
         </div>
       </main>

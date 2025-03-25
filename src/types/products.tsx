@@ -1,6 +1,6 @@
 // No segundo arquivo
 import { Product } from "../models/Product";
 
-export type productsProps = {
+export type ProductsProps  = {
   products: Product[];
 };

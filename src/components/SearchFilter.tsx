@@ -27,7 +27,7 @@ const SearchFilter = () => {
     error: categoriesError,
   } = useQuery({
     queryKey: ["categories"],
-    queryFn: () => fetchCategories(),
+    queryFn: fetchCategories,
     staleTime: 20 * 60 * 1000,
   });
 
@@ -54,16 +54,24 @@ const SearchFilter = () => {
     setCurrentSubcategory(e.target.value);
   };
 
-  useEffect(() => {
-    const newSearchParams = new URLSearchParams();
+useEffect(() => {
+  const newSearchParams = new URLSearchParams(searchParams.toString());
+  
+  if (currentCategory) {
+    newSearchParams.set("category", currentCategory);
+  } else {
+    newSearchParams.delete("category");
+  }
+  
+  if (currentSubcategory) {
+    newSearchParams.set("subcategory", currentSubcategory);
+  } else {
+    newSearchParams.delete("subcategory");
+  }
 
-    if (currentCategory) newSearchParams.set("category", currentCategory);
-    if (currentSubcategory)
-      newSearchParams.set("subcategory", currentSubcategory);
-
-    setSearchParams(newSearchParams);
-  }, [currentCategory, currentSubcategory, setSearchParams]);
-
+  setSearchParams(newSearchParams);
+}, [currentCategory, currentSubcategory, setSearchParams, searchParams]);
+  
   const handleClearFilters = () => {
     setCurrentCategory("");
     setCurrentSubcategory("");
@@ -113,7 +121,7 @@ const SearchFilter = () => {
               {!categoriesLoading &&
                 !categoriesError &&
                 categories.map((category: Category) => (
-                  <option key={category.id} value={category.name}>
+                  <option key={category.id} value={category.id}>
                     {category.name}
                   </option>
                 ))}
@@ -139,7 +147,7 @@ const SearchFilter = () => {
               {!subcategoriesLoading &&
                 !subcategoriesError &&
                 subcategories.map((subcategory: Subcategory) => (
-                  <option key={subcategory.id} value={subcategory.name}>
+                  <option key={subcategory.id} value={subcategory.id}>
                     {subcategory.name}
                   </option>
                 ))}

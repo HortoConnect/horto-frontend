@@ -1,9 +1,10 @@
 import { Product } from "@/models/Product";
-import { productsProps } from "@/types/products";
+import { ProductsProps } from "@/types/products";
 import { Link } from "react-router-dom";
 import Favorito from "./Favorito";
 
-const ProductsList: React.FC<productsProps> = ({ products }) => {
+const ProductsList: React.FC<ProductsProps> = ({ products }) => {
+
   return (
     <>
       <ul
@@ -40,7 +41,7 @@ const ProductsList: React.FC<productsProps> = ({ products }) => {
                 </h3>
 
                 <div className="favorito-container">
-                  <Favorito />
+                  <Favorito productId={produto.id} />
                 </div>
               </div>
             </Link>

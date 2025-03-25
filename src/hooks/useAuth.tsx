@@ -13,7 +13,8 @@ export const useAuth = () => {
     if (savedToken) {
       const userData = getTokenPayload(savedToken);
       islogin(savedToken, {
-        role: userData.role
+        role: userData.role,
+        id: userData.id,
       });
     }
   }, [islogin]);
@@ -30,7 +31,8 @@ export const useAuth = () => {
       const userData = getTokenPayload(data.token);
       console.log(userData);
       islogin(data.token, {
-        role: userData.role
+        role: userData.role,
+        id: userData.id,
       });
       setError(null);
       return userData.role;

@@ -6,7 +6,7 @@ const api = axios.create({
   withCredentials: true,
 });
 
-export const produtosCadastrados = async (name: string) => {
+export const produtosCadastrados = async (name?: string, category?: string, subcategory?: string) => {
   const token = Cookies.get("authToken");
 
   try {
@@ -16,6 +16,8 @@ export const produtosCadastrados = async (name: string) => {
       },
       params: {
         name,
+        category_id: category,
+        subcategory_id: subcategory,
       },
     });
     return response.data;
@@ -287,6 +289,56 @@ export const listaFornecedoresService = async () => {
 
   try {
     const response = await api.get("/supplier", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Favoritos
+export const toggleFavorite = async (userId: number, productId: number) => {
+  const token = Cookies.get("authToken");
+  try {
+    const response = await api.post("/api/favorites", 
+      { user_id: userId, product_id: productId },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Get user favorites
+export const fetchUserFavoritesService = async (id: Number) => {
+  const token = Cookies.get("authToken");
+
+  try {
+    const response = await api.get(`/api/favorites/user/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Remove a product from favorites
+export const removeFavoriteService = async (product_id: number) => {
+  const token = Cookies.get("authToken");
+
+  try {
+    const response = await api.delete(`/api/favorites/${product_id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
