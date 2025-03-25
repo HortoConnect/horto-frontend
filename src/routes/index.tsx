@@ -15,7 +15,8 @@ export function Routes() {
     if (token) {
       const userData = getTokenPayload(token);
       islogin(token, {
-        role: userData.role
+        role: userData.role,
+        id: userData.id,
       })
     }
   }, [islogin]);
