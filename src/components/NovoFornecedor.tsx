@@ -12,7 +12,7 @@ import { Button } from "./ui/button";
 import { useQueryClient } from "@tanstack/react-query";
 
 const NovoFornecedor = () => {
-    const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
   const { error, cadastroFornecedor } = useFornecedores();
 
   const {
@@ -26,7 +26,7 @@ const NovoFornecedor = () => {
 
   async function onSubmit(data: FieldValues) {
     try {
-      await cadastroFornecedor(data.nome, data.cnpj);
+      await cadastroFornecedor(data.nome, data.cnpj, data.telefoneVenda, data.telefone);
       queryClient.invalidateQueries({
         queryKey: ["fornecedores"],
       });
@@ -34,6 +34,8 @@ const NovoFornecedor = () => {
       reset({
         nome: "",
         cnpj: "",
+        telefoneVenda: "",
+        telefone: "",
       });
     } catch (error) {
       toast.error("Erro ao cadastrar fornecedor");
@@ -62,8 +64,8 @@ const NovoFornecedor = () => {
               <ErrorMessage errors={errors} name="nome" />
             </p>
           </div>
-          <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <div className="mb-5">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
               CNPJ
             </label>
             <InputMask
@@ -71,10 +73,42 @@ const NovoFornecedor = () => {
               replacement={{ _: /\d/ }}
               {...register("cnpj")}
               placeholder="00.000.000/0000-00"
-               className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all"
+              className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all"
             />
-             <p className="text-xs font-semibold text-red-700 mt-1">
+            <p className="text-xs font-semibold text-red-700 mt-1">
               <ErrorMessage errors={errors} name="cnpj" />
+            </p>
+          </div>
+
+          <div className="mb-5">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Telefone de Venda
+            </label>
+            <InputMask
+              mask="(__) _____-____"
+              replacement={{ _: /\d/ }}
+              {...register("telefoneVenda")}
+              placeholder="(00) 00000-0000"
+              className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all"
+            />
+            <p className="text-xs font-semibold text-red-700 mt-1">
+              <ErrorMessage errors={errors} name="telefoneVenda" />
+            </p>
+          </div>
+
+          <div className="mb-5">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Telefone de Contato
+            </label>
+            <InputMask
+              mask="(__) _____-____"
+              replacement={{ _: /\d/ }}
+              {...register("telefone")}
+              placeholder="(00) 00000-0000"
+              className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all"
+            />
+            <p className="text-xs font-semibold text-red-700 mt-1">
+              <ErrorMessage errors={errors} name="telefone" />
             </p>
           </div>
 

@@ -6,13 +6,13 @@ const api = axios.create({
   withCredentials: true,
 });
 
-export const fornecedorService = async (name: string, cnpj: string) => {
+export const fornecedorService = async (name: string, cnpj: string, sales_phone: string, contact_phone: string) => {
   const token = Cookies.get("authToken");
 
   try {
     const response = await api.post(
-      "/supplier",
-      { name, cnpj },
+      "/api/supplier",
+      { name, cnpj, sales_phone, contact_phone },
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -34,7 +34,7 @@ export const fornecedoresListService = async () => {
   const token = Cookies.get("authToken");
 
   try {
-    const response = await api.get("/supplier", {
+    const response = await api.get("/api/supplier", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
